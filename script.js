@@ -82,6 +82,30 @@ form.addEventListener("submit", (e) => {
   validatePassword();
   validateConfirmPassword();
 
-  
-  form.reset();
+  //Boolean to assess if all verifications pass.
+  const isValid =
+    usernameError.textContent === "" &&
+    emailError.textContent === "" &&
+    passwordError.textContent === "" &&
+    confirmPasswordError.textContent === "";
+
+  if (isValid) {
+    // Save username
+    localStorage.setItem("savedUsername", username.value);
+
+    alert("Registration successful!");
+    form.reset();
+    return;
+  }
+
+  // Focus Logic for errors, helps user experience with form.
+  if (usernameError.textContent) {
+    username.focus();
+  } else if (emailError.textContent) {
+    email.focus();
+  } else if (passwordError.textContent) {
+    password.focus();
+  } else if (confirmPasswordError.textContent) {
+    confirmPassword.focus();
+  }
 });
